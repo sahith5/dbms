@@ -1,0 +1,40 @@
+
+-- Find out the PG-13 rated comedy movies.
+select distinct name from category;
+select  category.name as genre,count(*) as count from film 
+inner join film_category  on film.film_id =film_category.film_id
+ inner join category on film_category.category_id=category.category_id 
+ where category.name="Comedy" and film.rating="PG-13"; 
+
+-- Find out the top 3 rented horror movies.-- 
+
+select title,count(*) from rental 
+inner join inventory on rental.inventory_id=inventory.inventory_id 
+inner join film on film.film_id=inventory.film_id
+ inner join film_category on film.film_id=film_category.film_id 
+ inner join category on film_category.category_id=category.category_id 
+ where category.name="horror" group by(title) order by count(title) desc limit 3;
+
+-- 3. Find out the list of customers from India who have rented sports movies.
+
+
+
+select  distinct customer.first_name,customer.last_name, category.name, country.country, city.city from country 
+inner join city on country.country_id=city.country_id inner join address on address.city_id=city.city_id 
+inner join customer on address.address_id=customer.address_id 
+inner join store on customer.store_id=store.store_id
+ inner join inventory on inventory.store_id=store.store_id
+ inner join film on inventory.film_id=film.film_id
+ inner join film_category on film.film_id = film_category.film_id 
+ inner join category on film_category.category_id=category.category_id 
+ where category.name="Sports" && country.country ="India" order by customer.first_name;
+ 
+ 
+ -- 5. Find out the number of movies in which “SEAN WILLIAMS” acted.
+
+select count(*) from  film inner join film_actor on 
+ film.film_id=film_actor.film_id 
+ inner join  actor on film_actor.actor_id=actor.actor_id 
+ where actor.first_name="SEAN" and actor.last_name="WILLIAMS";
+ 
+ 

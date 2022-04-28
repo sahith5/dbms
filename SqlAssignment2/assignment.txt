@@ -1,0 +1,17 @@
+
+-- Find out the number of sci-fi movies rented by the store managed by Jon Stephens.
+select count(category.name),category.name  from staff s 
+ inner join store st on st.manager_staff_id= s.staff_id
+ inner join inventory on inventory.store_id=st.store_id  
+ inner join film on inventory.film_id=film.film_id inner join 
+ film_category on film.film_id = film_category.film_id 
+ inner join category on film_category.category_id=category.category_id  
+ where s.first_name="Jon" and s.last_name="Stephens" and category.name="sci-fi" ;
+
+
+-- Find out the PG-13 rated comedy movies.
+select distinct name from category;
+select  category.name as genre,count(*) as count from film 
+inner join film_category  on film.film_id =film_category.film_id
+ inner join category on film_category.category_id=category.category_id 
+ where category.name="Comedy" and film.rating="PG-13"; 
