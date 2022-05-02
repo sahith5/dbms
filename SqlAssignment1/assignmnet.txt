@@ -29,6 +29,11 @@ inner join store on customer.store_id=store.store_id
  inner join category on film_category.category_id=category.category_id 
  where category.name="Sports" && country.country ="India" order by customer.first_name;
  
+  -- 4. Find out the list of customers from Canada who have rented “NICK WAHLBERG” movies.
+select * from customer_list c1 where country='Canada' and id in 
+(select r.customer_id from actor a,film_actor fa,inventory i,rental r
+ where a.first_name='NICK' and a.last_name="WAHLBERG" 
+ and a.actor_id=fa.actor_id and fa.film_id=i.film_id and i.inventory_id=r.inventory_id);
  
  -- 5. Find out the number of movies in which “SEAN WILLIAMS” acted.
 
